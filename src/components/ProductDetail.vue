@@ -29,8 +29,8 @@
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
           </svg>
         </button>
-        <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 transition duration-200">
-          Add To Cart +
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 transition duration-200">
+          Add To Cart
         </button>
       </div>
     </div>
@@ -39,21 +39,28 @@
 
 <script>
 import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'ProductDetail',
-  props: ['id'],
-  setup(props) {
+  setup() {
+    const route = useRoute()
+    const router = useRouter()
     const product = ref(null)
     const loading = ref(true)
     const favorites = ref([])
 
     onMounted(async () => {
       loading.value = true
-      const response = await fetch(`https://fakestoreapi.com/products/${props.id}`)
-      const data = await response.json()
-      product.value = data
-      loading.value = false
+      try {
+        const response = await fetch(`https://fakestoreapi.com/products/${route.params.id}`)
+        const data = await response.json()
+        product.value = data
+      } catch (error) {
+        console.error('Error fetching product details:', error)
+      } finally {
+        loading.value = false
+      }
 
       const storedFavorites = localStorage.getItem('favorites')
       if (storedFavorites) {
@@ -62,7 +69,7 @@ export default {
     })
 
     function goBack() {
-      window.history.back()
+      router.go(-1)
     }
 
     function toggleFavorite(productId) {

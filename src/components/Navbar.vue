@@ -1,7 +1,7 @@
 <template>
-  <nav class="fixed w-full bg-pink-600 p-4 text-pink-50 shadow-lg">
+  <nav class="fixed w-full bg-purple-900 p-4 text-purple-400 shadow-lg">
     <div class="container mx-auto flex justify-between items-center">
-      <div class="text-lg font-bold">My FlexStore</div>
+      <div class="text-lg font-bold">SwiftCart Store</div>
       <div class="hidden md:flex">
         <router-link to="/" class="mr-4 hover:underline">Home</router-link>
         <router-link to="/" class="mr-4 hover:underline">Wishlist</router-link>
@@ -35,10 +35,10 @@
         </svg>
       </button>
     </div>
-    <div v-if="open" class="md:hidden mt-4 bg-pink-500">
-      <router-link to="/" class="block p-2 hover:bg-pink-400">Home</router-link>
-      <router-link to="/" class="block p-2 hover:bg-pink-400">Wishlist</router-link>
-      <router-link to="/" class="block p-2 hover:bg-pink-400">
+    <div v-if="open" class="md:hidden mt-4 bg-purple-500">
+      <router-link to="/" class="block p-2 hover:bg-yellow-400">Home</router-link>
+      <router-link to="/" class="block p-2 hover:bg-yellow-400">Wishlist</router-link>
+      <router-link to="/" class="block p-2 hover:bg-yellow-400">
         <svg
           width="32px"
           height="32px"
@@ -49,7 +49,7 @@
           <!-- SVG content -->
         </svg>
       </router-link>
-      <router-link to="/" class="block p-2 hover:bg-pink-400">Login</router-link>
+      <router-link to="/" class="block p-2 hover:bg-yellow-400">Login</router-link>
     </div>
   </nav>
 </template>

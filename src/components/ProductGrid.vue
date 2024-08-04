@@ -15,7 +15,7 @@
           Rating: {{ product.rating.rate }} ({{ product.rating.count }} reviews)
         </p>
         <div class="mt-auto flex justify-evenly items-center">
-          <button @click="toggleFavorite(product.id)" class="">
+          <button @click.prevent="toggleFavorite(product.id)" class="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -32,9 +32,9 @@
             </svg>
           </button>
           <button
-            class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 transition duration-200"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 transition duration-200"
           >
-            Add To Cart +
+            Add To Cart
           </button>
         </div>
       </div>

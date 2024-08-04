@@ -19,7 +19,7 @@
           />
           <button
             @click="searchProducts"
-            class="bg-white text-black border border-l-0 p-2 rounded-r"
+            class="bg-gray-500 text-white border border-l-0 p-2 rounded-r"
           >
             Search
           </button>
@@ -31,9 +31,23 @@
           <option value="asc">Lowest to Highest</option>
           <option value="desc">Highest to Lowest</option>
         </select>
+
+        <!-- New Reset Button -->
+        <button
+          @click="resetFiltersAndSort"
+          class="bg-gray-500 hover:bg-gray-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 transition duration-200"
+        >
+          Reset
+        </button>
       </div>
 
-      <router-view :filteredProducts="filteredProducts" :loading="loading" />
+      <router-view 
+        :filteredProducts="filteredProducts" 
+        :loading="loading"
+        :selectedCategory="selectedCategory"
+        :sortOrder="sortOrder"
+        :searchQuery="searchQuery"
+      />
     </div>
   </div>
 </template>
@@ -57,16 +71,25 @@ export default {
 
     const fetchProducts = async () => {
       loading.value = true
-      const response = await fetch('https://fakestoreapi.com/products')
-      const data = await response.json()
-      products.value = data
-      loading.value = false
+      try {
+        const response = await fetch('https://fakestoreapi.com/products')
+        const data = await response.json()
+        products.value = data
+      } catch (error) {
+        console.error('Error fetching products:', error)
+      } finally {
+        loading.value = false
+      }
     }
 
     const fetchCategories = async () => {
-      const response = await fetch('https://fakestoreapi.com/products/categories')
-      const data = await response.json()
-      categories.value = data
+      try {
+        const response = await fetch('https://fakestoreapi.com/products/categories')
+        const data = await response.json()
+        categories.value = data
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      }
     }
 
     const searchProducts = () => {
@@ -74,16 +97,16 @@ export default {
     }
 
     const filteredProducts = computed(() => {
-      let prods = products.value
+      let prods = [...products.value]
       if (selectedCategory.value) {
         prods = prods.filter(product => product.category === selectedCategory.value)
       }
       if (sortOrder.value === 'asc') {
-        prods = prods.sort((a, b) => a.price - b.price)
+        prods.sort((a, b) => a.price - b.price)
       } else if (sortOrder.value === 'desc') {
-        prods = prods.sort((a, b) => b.price - a.price)
+        prods.sort((a, b) => b.price - a.price)
       } else if (sortOrder.value === 'default') {
-        prods = prods.sort((a, b) => a.id - b.id)
+        prods.sort((a, b) => a.id - b.id)
       }
       if (searchQuery.value) {
         prods = prods.filter(product => 
@@ -92,6 +115,13 @@ export default {
       }
       return prods
     })
+
+    // New function to reset filters and sorting
+    const resetFiltersAndSort = () => {
+      selectedCategory.value = ''
+      sortOrder.value = ''
+      searchQuery.value = ''
+    }
 
     onMounted(() => {
       fetchProducts()
@@ -105,7 +135,8 @@ export default {
       sortOrder,
       loading,
       filteredProducts,
-      searchProducts
+      searchProducts,
+      resetFiltersAndSort // Expose the new reset function
     }
   }
 }
