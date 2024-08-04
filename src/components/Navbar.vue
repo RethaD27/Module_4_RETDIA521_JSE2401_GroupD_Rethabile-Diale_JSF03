@@ -1,7 +1,7 @@
 <template>
-  <nav class="fixed w-full bg-purple-900 p-4 text-purple-400 shadow-lg">
+  <nav class="fixed w-full bg-purple-900 p-4 text-purple-400 shadow-lg z-10">
     <div class="container mx-auto flex justify-between items-center">
-      <div class="text-lg font-bold">SwiftCart Store</div>
+      <div class="text-2xl font-bold swift-cart-store">SwiftCart Store</div>
       <div class="hidden md:flex">
         <router-link to="/" class="mr-4 hover:underline">Home</router-link>
         <router-link to="/" class="mr-4 hover:underline">Wishlist</router-link>
@@ -73,3 +73,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.swift-cart-store {
+  font-family: 'Brush Script MT', cursive;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 1px;
+  background: linear-gradient(45deg, #ff79c6, #bd93f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
