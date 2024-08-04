@@ -20,7 +20,7 @@
       </div>
       <h3 class="text-2xl font-bold mb-2">{{ product.title }}</h3>
       <p class="text-gray-700 mb-2">${{ product.price.toFixed(2) }}</p>
-      <p class="text-gray-500 mb-2">Category: {{ product.category }}</p>
+      <p class="text-gray-500 mb-2">{{ product.category }}</p>
       <div class="flex items-center mb-2">
         <div class="flex">
           <svg v-for="n in 5" :key="n" class="w-5 h-5" :class="{'text-yellow-400': n <= Math.round(product.rating.rate), 'text-gray-300': n > Math.round(product.rating.rate)}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
