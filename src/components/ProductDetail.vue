@@ -48,13 +48,32 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+/**
+ * @module ProductDetail
+ * @description Component to display detailed information about a specific product.
+ */
 export default {
   name: 'ProductDetail',
   setup() {
     const route = useRoute()
     const router = useRouter()
+    
+    /**
+     * @description The product details.
+     * @type {import('vue').Ref<Object|null>}
+     */
     const product = ref(null)
+    
+    /**
+     * @description Loading state of the component.
+     * @type {import('vue').Ref<boolean>}
+     */
     const loading = ref(true)
+    
+    /**
+     * @description List of favorite product IDs.
+     * @type {import('vue').Ref<number[]>}
+     */
     const favorites = ref([])
 
     onMounted(async () => {
@@ -75,10 +94,19 @@ export default {
       }
     })
 
+    /**
+     * @function goBack
+     * @description Navigates back to the previous page.
+     */
     function goBack() {
       router.go(-1)
     }
 
+    /**
+     * @function toggleFavorite
+     * @description Toggles the favorite status of a product.
+     * @param {number} productId - The ID of the product to toggle.
+     */
     function toggleFavorite(productId) {
       const index = favorites.value.indexOf(productId)
       if (index > -1) {
@@ -89,6 +117,12 @@ export default {
       localStorage.setItem('favorites', JSON.stringify(favorites.value))
     }
 
+    /**
+     * @function isFavorite
+     * @description Checks if a product is in the favorites list.
+     * @param {number} productId - The ID of the product to check.
+     * @returns {boolean} - Whether the product is a favorite.
+     */
     function isFavorite(productId) {
       return favorites.value.includes(productId)
     }

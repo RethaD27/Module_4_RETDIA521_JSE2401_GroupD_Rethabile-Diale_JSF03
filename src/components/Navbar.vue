@@ -57,11 +57,23 @@
 <script>
 import { ref } from 'vue'
 
+/**
+ * @module Navbar
+ * @description A navigation bar component for the SwiftCart Store.
+ */
 export default {
   name: 'Navbar',
   setup() {
+    /**
+     * @description Ref to keep track of the menu's open state.
+     * @type {import('vue').Ref<boolean>}
+     */
     const open = ref(false)
 
+    /**
+     * @function toggleMenu
+     * @description Toggles the visibility of the mobile menu.
+     */
     const toggleMenu = () => {
       open.value = !open.value
     }

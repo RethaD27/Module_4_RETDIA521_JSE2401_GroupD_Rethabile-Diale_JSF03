@@ -57,16 +57,26 @@ export default {
     Loading
   },
   props: {
+    /**
+     * @property {Array} filteredProducts - The list of filtered products to display.
+     */
     filteredProducts: {
       type: Array,
       required: true
     },
+    /**
+     * @property {Boolean} loading - Indicates whether the product data is still loading.
+     */
     loading: {
       type: Boolean,
       required: true
     }
   },
   setup() {
+    /**
+     * @description List of favorite product IDs.
+     * @type {import('vue').Ref<number[]>}
+     */
     const favorites = ref([])
 
     onMounted(() => {
@@ -76,6 +86,11 @@ export default {
       }
     })
 
+    /**
+     * @function toggleFavorite
+     * @description Toggles the favorite status of a product.
+     * @param {number} productId - The ID of the product to toggle.
+     */
     function toggleFavorite(productId) {
       const index = favorites.value.indexOf(productId)
       if (index > -1) {
@@ -86,6 +101,12 @@ export default {
       localStorage.setItem('favorites', JSON.stringify(favorites.value))
     }
 
+    /**
+     * @function isFavorite
+     * @description Checks if a product is in the favorites list.
+     * @param {number} productId - The ID of the product to check.
+     * @returns {boolean} - Whether the product is a favorite.
+     */
     function isFavorite(productId) {
       return favorites.value.includes(productId)
     }
